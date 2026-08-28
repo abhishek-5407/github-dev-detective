@@ -14,9 +14,7 @@
 
 'use strict';
 
-/* ==========================================================================
-   CONSTANTS
-   ========================================================================== */
+/* CONSTANTS */
 const API_BASE = 'https://api.github.com';
 
 /** Language color map (subset, mirrors GitHub linguist) */
@@ -40,9 +38,7 @@ const LANG_COLORS = {
   Dart:       '#00B4AB',
 };
 
-/* ==========================================================================
-   UTILITY FUNCTIONS
-   ========================================================================== */
+/* UTILITY FUNCTIONS */
 
 /**
  * formatDate — Converts ISO 8601 timestamp to human-readable string
@@ -93,9 +89,7 @@ function getLangColor(lang) {
   return LANG_COLORS[lang] ?? '#8b949e';
 }
 
-/* ==========================================================================
-   API LAYER
-   ========================================================================== */
+/* API LAYER */
 
 /**
  * fetchJSON — Generic JSON fetcher with HTTP error handling
@@ -163,9 +157,7 @@ function calculateTotalStars(repos) {
   return repos.reduce((total, repo) => total + (repo.stargazers_count ?? 0), 0);
 }
 
-/* ==========================================================================
-   DOM HELPERS
-   ========================================================================== */
+/* DOM HELPERS */
 
 /** Safely get element or throw */
 function el(id) {
@@ -183,9 +175,7 @@ function hide(node) { node.classList.add('hidden'); }
 /** Set text content safely */
 function setText(node, value) { node.textContent = value ?? ''; }
 
-/* ==========================================================================
-   SINGLE SEARCH — DOM NODES
-   ========================================================================== */
+/* SINGLE SEARCH — DOM NODES */
 const searchForm    = el('search-form');
 const searchInput   = el('search-input');
 const stateLoading  = el('state-loading');
@@ -195,9 +185,7 @@ const profileCard   = el('profile-card');
 const reposList     = el('repos-list');
 const reposLoading  = el('repos-loading');
 
-/* ==========================================================================
-   SINGLE SEARCH — STATE MANAGEMENT
-   ========================================================================== */
+/* SINGLE SEARCH — STATE MANAGEMENT */
 
 /** Reset UI to idle state */
 function resetSingleUI() {
@@ -229,9 +217,7 @@ function enterSuccessState(user) {
   show(profileCard);
 }
 
-/* ==========================================================================
-   PROFILE RENDERING
-   ========================================================================== */
+/* PROFILE RENDERING */
 
 /**
  * renderProfile — Maps GitHub user object to DOM
@@ -287,9 +273,7 @@ function renderProfile(user) {
   show(reposLoading);
 }
 
-/* ==========================================================================
-   REPOSITORY RENDERING
-   ========================================================================== */
+/* REPOSITORY RENDERING */
 
 /**
  * renderRepos — Maps repos array to DOM list
@@ -353,9 +337,7 @@ function renderRepos(repos) {
   });
 }
 
-/* ==========================================================================
-   SINGLE SEARCH — MAIN HANDLER
-   ========================================================================== */
+/* SINGLE SEARCH — MAIN HANDLER */
 
 /**
  * handleSearch — Orchestrates the async fetch + render pipeline
@@ -392,9 +374,7 @@ async function handleSearch(username) {
   }
 }
 
-/* ==========================================================================
-   SINGLE SEARCH — EVENT LISTENERS
-   ========================================================================== */
+/* SINGLE SEARCH — EVENT LISTENERS */
 
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -410,9 +390,7 @@ document.querySelectorAll('.example-link').forEach((btn) => {
   });
 });
 
-/* ==========================================================================
-   MODE TABS
-   ========================================================================== */
+/* MODE TABS */
 const tabSingle  = el('tab-single');
 const tabBattle  = el('tab-battle');
 const panelSingle = el('panel-single');
@@ -450,9 +428,7 @@ tabBattle.addEventListener('click', () => activateTab('battle'));
   });
 });
 
-/* ==========================================================================
-   BATTLE MODE — DOM NODES
-   ========================================================================== */
+/* BATTLE MODE — DOM NODES */
 const battleForm    = el('battle-form');
 const battleUser1   = el('battle-user1');
 const battleUser2   = el('battle-user2');
@@ -461,9 +437,7 @@ const battleError   = el('battle-error');
 const battleErrorMsg = el('battle-error-message');
 const battleResults  = el('battle-results');
 
-/* ==========================================================================
-   BATTLE MODE — STATE HELPERS
-   ========================================================================== */
+/* BATTLE MODE — STATE HELPERS */
 
 function battleEnterLoading() {
   hide(battleError);
@@ -486,9 +460,7 @@ function battleEnterSuccess(cards) {
   show(battleResults);
 }
 
-/* ==========================================================================
-   BATTLE MODE — CARD BUILDER
-   ========================================================================== */
+/* BATTLE MODE — CARD BUILDER */
 
 /**
  * buildBattleCard — Constructs a battle result card DOM element
@@ -546,9 +518,7 @@ function buildBattleCard(user, totalStars, isWinner) {
   return div;
 }
 
-/* ==========================================================================
-   BATTLE MODE — MAIN HANDLER
-   ========================================================================== */
+/* BATTLE MODE — MAIN HANDLER */
 
 /**
  * handleBattle — Runs two fetches simultaneously via Promise.all()
@@ -592,9 +562,7 @@ async function handleBattle(u1, u2) {
   }
 }
 
-/* ==========================================================================
-   BATTLE MODE — EVENT LISTENER
-   ========================================================================== */
+/* BATTLE MODE — EVENT LISTENER */
 
 battleForm.addEventListener('submit', (e) => {
   e.preventDefault();

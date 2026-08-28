@@ -642,9 +642,7 @@ button {
   color: #a78bfa;
 }
 
-/* ==========================================================================
-   REPOSITORIES SECTION
-   ========================================================================== */
+/*  REPOSITORIES SECTION  */
 .repos-section {
   padding: var(--space-6) var(--space-8) var(--space-8);
 }
@@ -770,9 +768,7 @@ button {
   flex-shrink: 0;
 }
 
-/* ==========================================================================
-   BATTLE MODE
-   ========================================================================== */
+/*  BATTLE MODE  */
 .battle-intro {
   text-align: center;
   margin-block-end: var(--space-8);
@@ -1019,9 +1015,7 @@ button {
   color: var(--clr-text-subtle);
 }
 
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
+/*  FOOTER  */
 .site-footer {
   padding-block: var(--space-6);
   border-top: 1px solid var(--clr-border);
@@ -1057,9 +1051,7 @@ button {
   font-family: var(--font-mono);
 }
 
-/* ==========================================================================
-   RESPONSIVE
-   ========================================================================== */
+/*  RESPONSIVE  */
 @media (max-width: 640px) {
   .header-inner {
     flex-direction: column;
@@ -1113,9 +1105,7 @@ button {
   .btn { padding: var(--space-3) var(--space-4); }
 }
 
-/* ==========================================================================
-   REDUCED MOTION
-   ========================================================================== */
+/*  REDUCED MOTION  */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

@@ -1,12 +1,12 @@
-﻿# Prompts.md — AI Pair-Programming Log
-### Project: Dev-Detective (Sprint 3 — Prodesk IT)
+﻿Prompts.md — AI Pair-Programming Log
+Project: Dev-Detective (Sprint 3 — Prodesk IT)
 ---
 
-## Prompt 1 — Understanding async/await and Promises
+Prompt 1 — Understanding async/await and Promises
 
-**Me:** Explain how async/await works in JavaScript. Why do we use it instead of `.then()` chains?
+Me: Explain how async/await works in JavaScript. Why do we use it instead of `.then()` chains?
 
-**AI (Concept Explanation):**
+AI (Concept Explanation):
 `async/await` is syntactic sugar over Promises. When you mark a function `async`, it always returns a Promise. Inside it, `await` pauses execution until a Promise resolves — making async code *read* like synchronous code, but it never blocks the thread.
 
 ```javascript
@@ -31,11 +31,11 @@ The `await` keyword makes the function wait for the fetch to complete before mov
 
 ---
 
-## Prompt 2 — Fetch API with Error Handling
+Prompt 2 — Fetch API with Error Handling
 
-**Me:** How do I use the Fetch API to call `https://api.github.com/users/octocat` and handle errors properly?
+Me: How do I use the Fetch API to call `https://api.github.com/users/octocat` and handle errors properly?
 
-**AI:**
+AI:
 ```javascript
 async function fetchUser(username) {
   const response = await fetch(`https://api.github.com/users/${username}`);
@@ -55,11 +55,11 @@ Key insight: `fetch()` does NOT throw on 404. You must check `response.ok` yours
 
 ---
 
-## Prompt 3 — DOM Manipulation (Rendering Profile Data)
+Prompt 3 — DOM Manipulation (Rendering Profile Data)
 
-**Me:** How do I take the JSON data from GitHub API and show it in my HTML?
+Me: How do I take the JSON data from GitHub API and show it in my HTML?
 
-**AI:**
+AI:
 ```javascript
 const data = await fetchUser('octocat');
 
@@ -78,11 +78,11 @@ Always use `textContent` (not `innerHTML`) when injecting user data to prevent X
 
 ---
 
-## Prompt 4 — Date Formatting Utility Function
+Prompt 4 — Date Formatting Utility Function
 
-**Me:** The API returns `"2011-01-25T18:44:36Z"`. How do I convert it to `"25 Jan 2011"`?
+Me: The API returns `"2011-01-25T18:44:36Z"`. How do I convert it to `"25 Jan 2011"`?
 
-**AI:**
+AI:
 ```javascript
 function formatDate(isoString) {
   if (!isoString) return 'N/A';
@@ -101,11 +101,11 @@ formatDate('2011-01-25T18:44:36Z'); // → "25 Jan 2011"
 
 ---
 
-## Prompt 5 — Loading State Implementation
+Prompt 5 — Loading State Implementation
 
-**Me:** How do I show a loading spinner while data is being fetched?
+Me: How do I show a loading spinner while data is being fetched?
 
-**AI:**
+AI:
 ```javascript
 // 1. In HTML, create a spinner div (initially hidden)
 // <div id="state-loading" class="hidden">Loading...</div>
@@ -132,11 +132,11 @@ Pattern: show loading → await → hide loading → show result OR error.
 
 ---
 
-## Prompt 6 — Endpoint Chaining (Phase 2)
+Prompt 6 — Endpoint Chaining (Phase 2)
 
-**Me:** How do I fetch repositories after fetching the user profile?
+Me: How do I fetch repositories after fetching the user profile?
 
-**AI:**
+AI:
 Endpoint chaining means: use data from the first API call to make a second call.
 ```javascript
 async function handleSearch(username) {
@@ -157,11 +157,11 @@ Both requests use `await` sequentially. The repos fetch only starts after the pr
 
 ---
 
-## Prompt 7 — Promise.all() for Battle Mode (Phase 3)
+Prompt 7 — Promise.all() for Battle Mode (Phase 3)
 
-**Me:** How do I fetch two users at the same time to make it faster?
+Me: How do I fetch two users at the same time to make it faster?
 
-**AI:**
+AI:
 ```javascript
 // Sequential (SLOW — 2 requests, one after the other):
 const user1 = await fetchUser('torvalds');    // Wait...
@@ -177,11 +177,11 @@ const [user1, user2] = await Promise.all([
 
 ---
 
-## Prompt 8 — Total Stars Calculation with reduce()
+Prompt 8 — Total Stars Calculation with reduce()
 
-**Me:** How do I calculate the total stars across all repositories?
+Me: How do I calculate the total stars across all repositories?
 
-**AI:**
+AI:
 ```javascript
 // repos is an array of repo objects, each has stargazers_count
 const repos = [
@@ -203,11 +203,11 @@ console.log(totalStars); // 172100
 
 ---
 
-## Prompt 9 — Conditional Winner/Loser UI
+Prompt 9 — Conditional Winner/Loser UI
 
-**Me:** How do I conditionally apply CSS classes based on who has more stars?
+Me: How do I conditionally apply CSS classes based on who has more stars?
 
-**AI:**
+AI:
 ```javascript
 const stars1 = calculateTotalStars(repos1); // e.g. 172100
 const stars2 = calculateTotalStars(repos2); // e.g. 85000

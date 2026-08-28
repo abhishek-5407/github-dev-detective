@@ -1,6 +1,6 @@
-﻿# 🔍 Dev-Detective — GitHub Profile Search & Battle App
+﻿ Dev-Detective — GitHub Profile Search & Battle App
 
-> **Prodesk IT | Sprint 3: The API Hunter**
+> Prodesk IT | Sprint 3: The API Hunter
 > A production-grade, client-side GitHub profile search tool with async JavaScript and Battle Mode.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-7c3aed?style=for-the-badge)](https://your-live-link-here.netlify.app)
@@ -8,36 +8,36 @@
 
 ---
 
-## 📸 Screenshots
+Screenshots
 
 > *(Add screenshots after deployment)*
 
 ---
 
-## 🚀 Features
+ Features
 
-### Phase 1 — Base MVP ✅
-- 🔎 **Search GitHub users** by username using the GitHub REST API
-- 🖼️ **Profile Card** — Avatar, Name, Bio, Location, Company, Twitter, Portfolio URL, Join Date
-- ⏳ **Loading State** — Animated spinner while the API promise resolves
-- 🚫 **404 Error Handling** — Clean "User Not Found" UI when the user doesn't exist
-- 📊 **Stats Bar** — Public Repos, Followers, Following
+Phase 1 — Base MVP ✅
+- Search GitHub users by username using the GitHub REST API
+- Profile Card — Avatar, Name, Bio, Location, Company, Twitter, Portfolio URL, Join Date
+- Loading State — Animated spinner while the API promise resolves
+- 404 Error Handling — Clean "User Not Found" UI when the user doesn't exist
+- Stats Bar — Public Repos, Followers, Following
 
-### Phase 2 — Data Expansion ✅
-- 📁 **Top 5 Latest Repositories** — Fetched via endpoint chaining (`repos_url`)
-- 🔗 **Clickable repo links** — Opens in a new tab
-- 🗓️ **Date Formatter Utility** — Converts ISO 8601 timestamps (e.g. `2023-01-25T12:00:00Z`) to `25 Jan 2023`
-- 🌟 **Star counts, forks, language badges** per repo
+Phase 2 — Data Expansion ✅
+- Top 5 Latest Repositories — Fetched via endpoint chaining (`repos_url`)
+- Clickable repo links — Opens in a new tab
+- Date Formatter Utility — Converts ISO 8601 timestamps (e.g. `2023-01-25T12:00:00Z`) to `25 Jan 2023`
+- Star counts, forks, language badges  per repo
 
-### Phase 3 — Battle Mode ✅
-- ⚔️ **Battle Mode Toggle** — Dual-input UI for comparing two GitHub users
-- ⚡ **Promise.all()** — Both users fetched simultaneously for speed
-- ⭐ **Total Stars Calculation** — `Array.reduce()` over `stargazers_count` for all repos
-- 🏆 **Conditional Winner/Loser UI** — Green border + trophy for winner, red for loser
+Phase 3 — Battle Mode ✅
+- Battle Mode Toggle — Dual-input UI for comparing two GitHub users
+- Promise.all() — Both users fetched simultaneously for speed
+- Total Stars Calculation — Array.reduce() over stargazers_count for all repos
+- Conditional Winner/Loser UI — Green border + trophy for winner, red for loser
 
 ---
 
-## 🛠️ Tech Stack
+Tech Stack
 
 | Layer       | Technology                     |
 |-------------|--------------------------------|
@@ -50,7 +50,7 @@
 
 ---
 
-## 📂 Folder Structure
+Folder Structure
 
 ```
 github-dev-detective/
@@ -65,9 +65,9 @@ github-dev-detective/
 
 ---
 
-## ⚙️ How It Works
+How It Works
 
-### Async Flow (Single Search)
+Async Flow (Single Search)
 ```
 User submits username
     │
@@ -84,7 +84,7 @@ fetchRepos(username, 5)      ← GET /users/{username}/repos?sort=updated&per_pa
 renderRepos(repos)           ← Build <li> cards → DOM
 ```
 
-### Battle Mode Flow
+Battle Mode Flow
 ```
 User submits username1 + username2
     │
@@ -101,7 +101,7 @@ calculateTotalStars(repos)   ← repos.reduce((acc, r) => acc + r.stargazers_cou
 Compare stars → Render Winner (green) + Loser (red)
 ```
 
-### Date Formatting Utility
+Date Formatting Utility
 ```javascript
 function formatDate(isoString) {
   const date = new Date(isoString);
@@ -114,7 +114,7 @@ function formatDate(isoString) {
 
 ---
 
-## 🚦 Error States Handled
+Error States Handled
 
 | HTTP Status | Error                    | UI Response                             |
 |-------------|--------------------------|------------------------------------------|
@@ -124,7 +124,7 @@ function formatDate(isoString) {
 
 ---
 
-## 📦 Local Setup
+Local Setup
 
 ```bash
 # No build tools required — pure HTML/CSS/JS
@@ -137,20 +137,20 @@ npx serve .
 
 ---
 
-## 🌐 Deployment
+Deployment
 
-### Netlify (Recommended)
+Netlify (Recommended)
 1. Drag and drop project folder at [netlify.com/drop](https://app.netlify.com/drop)
 2. Get your live URL instantly
 
-### Vercel
+Vercel
 ```bash
 npx vercel --prod
 ```
 
 ---
 
-## 📋 API Reference
+API Reference
 
 | Endpoint                                  | Description                    |
 |-------------------------------------------|--------------------------------|
@@ -158,11 +158,11 @@ npx vercel --prod
 | `GET /users/{username}/repos?sort=updated&per_page=5` | Fetch top 5 repos |
 | `GET /users/{username}/repos?per_page=100`| Fetch all repos (Battle Mode)  |
 
-> **Rate Limit:** 60 requests/hour (unauthenticated). Pass a PAT token in headers to increase to 5,000/hour.
+> Rate Limit: 60 requests/hour (unauthenticated). Pass a PAT token in headers to increase to 5,000/hour.
 
 ---
 
-## 🎓 Concepts Demonstrated
+Concepts Demonstrated
 
 - `fetch()` API for HTTP requests
 - `async` / `await` for readable async code
@@ -178,4 +178,4 @@ npx vercel --prod
 
 ---
 
-*Prodesk IT — Sprint 3 | Built with ❤️ using the GitHub REST API*
+Prodesk IT — Sprint 3 | Built with  using the GitHub REST API

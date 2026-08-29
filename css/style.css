@@ -1,4 +1,4 @@
-﻿/*
+/*
    Dev-Detective — style.css
    Premium Dark Theme | Glassmorphism | Micro-animations
    Author: Prodesk IT — Sprint 3
@@ -1111,5 +1111,215 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/*  SETTINGS & MODAL STYLES  */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.rate-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-sans);
+}
+
+.rate-badge.default {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.rate-badge.authenticated {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--clr-winner);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.btn-settings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-bg-alt);
+  transition: all var(--transition-normal);
+}
+
+.btn-settings:hover {
+  color: var(--clr-text);
+  border-color: var(--clr-accent-1);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.25);
+  transform: rotate(30deg);
+}
+
+/* Settings Modal */
+.settings-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  animation: fadeIn var(--transition-normal) both;
+}
+
+.settings-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 17, 23, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.settings-content {
+  position: relative;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6) var(--space-8);
+  max-width: 480px;
+  width: 100%;
+  box-shadow: var(--shadow-lg), 0 0 32px rgba(124, 58, 237, 0.1);
+  z-index: 1001;
+  animation: fadeInUp var(--transition-normal) both;
+}
+
+.btn-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+}
+
+.btn-close:hover {
+  color: var(--clr-text);
+  background: var(--clr-surface-hover);
+}
+
+.settings-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-block-end: var(--space-2);
+  letter-spacing: -0.02em;
+}
+
+.settings-desc {
+  font-size: 0.875rem;
+  color: var(--clr-text-muted);
+  margin-block-end: var(--space-5);
+  line-height: 1.5;
+}
+
+.settings-form-group {
+  margin-block-end: var(--space-5);
+}
+
+.settings-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--clr-text-subtle);
+  margin-block-end: var(--space-2);
+}
+
+.settings-input {
+  width: 100%;
+  background: var(--clr-bg-alt);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  color: var(--clr-text);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.settings-input:focus {
+  border-color: var(--clr-accent-1);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.settings-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block-end: var(--space-6);
+}
+
+.btn-save {
+  padding: var(--space-2) var(--space-6);
+}
+
+.btn-clear {
+  font-size: 0.875rem;
+  color: var(--clr-loser);
+  font-weight: 600;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  transition: all var(--transition-fast);
+}
+
+.btn-clear:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.settings-help {
+  border-top: 1px solid var(--clr-border);
+  padding-block-start: var(--space-4);
+}
+
+.settings-help h3 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-block-end: var(--space-2);
+  color: var(--clr-text);
+}
+
+.settings-help ol {
+  font-size: 0.8125rem;
+  color: var(--clr-text-muted);
+  padding-inline-start: var(--space-4);
+  line-height: 1.6;
+}
+
+.settings-help li {
+  margin-block-end: var(--space-1);
+}
+
+@media (max-width: 480px) {
+  .settings-content {
+    padding: var(--space-5) var(--space-6);
+  }
+  .header-actions {
+    gap: var(--space-2);
+  }
+  .rate-badge {
+    font-size: 0.6875rem;
+    padding: var(--space-1) var(--space-2);
   }
 }

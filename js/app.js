@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Dev-Detective — app.js
  * GitHub Profile Search & Battle Mode
  *
@@ -89,6 +89,34 @@ function getLangColor(lang) {
   return LANG_COLORS[lang] ?? '#8b949e';
 }
 
+/**
+ * Retrieves the stored Personal Access Token from localStorage
+ * @returns {string}
+ */
+function getStoredToken() {
+  return localStorage.getItem('github_pat')?.trim() || '';
+}
+
+/**
+ * Updates the Rate-Limit status badge based on presence of a token
+ */
+function updateRateLimitBadge() {
+  try {
+    const badge = document.getElementById('rate-limit-badge');
+    if (!badge) return;
+    const token = getStoredToken();
+    if (token) {
+      badge.textContent = 'Auth Limit (5K/hr)';
+      badge.className = 'rate-badge authenticated';
+    } else {
+      badge.textContent = 'Default Limit (60/hr)';
+      badge.className = 'rate-badge default';
+    }
+  } catch (err) {
+    console.error('Failed to update rate limit badge:', err);
+  }
+}
+
 /* API LAYER */
 
 /**
@@ -98,12 +126,17 @@ function getLangColor(lang) {
  * @returns {Promise<any>}
  */
 async function fetchJSON(url) {
-  const response = await fetch(url, {
-    headers: {
-      Accept: 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28',
-    },
-  });
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+
+  const token = getStoredToken();
+  if (token) {
+    headers['Authorization'] = `token ${token}`;
+  }
+
+  const response = await fetch(url, { headers });
 
   if (!response.ok) {
     const errorBody = await response.json().catch(() => ({}));
@@ -581,4 +614,59 @@ battleForm.addEventListener('submit', (e) => {
   }
 
   handleBattle(u1, u2);
+});
+
+/* --- API SETTINGS & TOKEN MANAGEMENT --- */
+
+const btnSettings      = el('btn-settings');
+const settingsModal    = el('settings-modal');
+const settingsOverlay  = el('settings-overlay');
+const closeSettings    = el('close-settings');
+const settingsForm     = el('settings-form');
+const tokenInput       = el('token-input');
+const btnClearToken    = el('btn-clear-token');
+
+// Load stored token and update badge on startup
+updateRateLimitBadge();
+
+// Open settings modal
+btnSettings.addEventListener('click', () => {
+  tokenInput.value = getStoredToken();
+  show(settingsModal);
+  tokenInput.focus();
+});
+
+// Close settings modal
+function hideSettings() {
+  hide(settingsModal);
+}
+closeSettings.addEventListener('click', hideSettings);
+settingsOverlay.addEventListener('click', hideSettings);
+
+// ESC key to close modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !settingsModal.classList.contains('hidden')) {
+    hideSettings();
+  }
+});
+
+// Save settings form
+settingsForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const token = tokenInput.value.trim();
+  if (token) {
+    localStorage.setItem('github_pat', token);
+  } else {
+    localStorage.removeItem('github_pat');
+  }
+  updateRateLimitBadge();
+  hideSettings();
+});
+
+// Clear token
+btnClearToken.addEventListener('click', () => {
+  localStorage.removeItem('github_pat');
+  tokenInput.value = '';
+  updateRateLimitBadge();
+  hideSettings();
 });

@@ -1,209 +1,281 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Dev-Detective: Search any GitHub user profile, explore repositories, and compare two developers in Battle Mode. Powered by the GitHub REST API." />
-    <meta name="theme-color" content="#0d1117" />
-    <meta property="og:title" content="Dev-Detective — GitHub Profile Search &amp; Battle" />
-    <meta property="og:description" content="Search GitHub profiles, explore repositories, and battle two developers head-to-head." />
-    <meta property="og:type" content="website" />
-    <title>Dev-Detective — GitHub Profile Search &amp; Battle</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <header class="site-header" role="banner">
-      <div class="container header-inner">
-        <div class="logo" aria-label="Dev-Detective logo">
-          <span class="logo-icon" aria-hidden="true">🔍</span>
-          <span class="logo-text">Dev<span class="logo-accent">Detective</span></span>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Dev-Detective: Search any GitHub user profile, explore repositories, and compare two developers in Battle Mode. Powered by the GitHub REST API." />
+  <meta name="theme-color" content="#0d1117" />
+  <meta property="og:title" content="Dev-Detective — GitHub Profile Search &amp; Battle" />
+  <meta property="og:description"
+    content="Search GitHub profiles, explore repositories, and battle two developers head-to-head." />
+  <meta property="og:type" content="website" />
+  <title>Dev-Detective — GitHub Profile Search &amp; Battle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <div class="logo" aria-label="Dev-Detective logo">
+        <span class="logo-icon" aria-hidden="true"></span>
+        <span class="logo-text">Dev<span class="logo-accent"> Detective</span></span>
+      </div>
+      <div class="header-actions">
+        <span id="rate-limit-badge" class="rate-badge default" title="GitHub API Rate Limit Status">Default Limit
+          (100000/hr)</span>
+        <button id="btn-settings" class="btn-settings" aria-label="Open Settings" title="API Settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main" id="main-content" role="main">
+    <div class="container">
+
+      <section class="mode-toggle-section" aria-label="App mode selection">
+        <div class="mode-tabs" role="tablist" aria-label="Search mode">
+          <button id="tab-single" class="mode-tab active" role="tab" aria-selected="true" aria-controls="panel-single">
+            <span class="tab-icon" aria-hidden="true">👤</span> Single Search
+          </button>
+          <button id="tab-battle" class="mode-tab" role="tab" aria-selected="false" aria-controls="panel-battle">
+            <span class="tab-icon" aria-hidden="true">⚔️</span> Battle Mode
+          </button>
         </div>
-        <p class="header-tagline">Hunt down any GitHub profile</p>
-      </div>
-    </header>
+      </section>
 
-    <main class="site-main" id="main-content" role="main">
-      <div class="container">
+      <section id="panel-single" class="panel" role="tabpanel" aria-labelledby="tab-single">
+        <form id="search-form" class="search-form" aria-label="GitHub username search" novalidate>
+          <div class="search-wrap">
+            <label for="search-input" class="sr-only">GitHub Username</label>
+            <span class="search-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+            </span>
+            <input type="text" id="search-input" class="search-input" placeholder="Search GitHub username…"
+              autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-required="true"
+              aria-describedby="search-hint" />
+            <button type="submit" id="search-btn" class="btn btn-primary">Search</button>
+          </div>
+          <p id="search-hint" class="search-hint">
+            Try
+            <button type="button" class="example-link" data-username="torvalds">torvalds</button>,
+            <button type="button" class="example-link" data-username="gaearon">gaearon</button>, or
+            <button type="button" class="example-link" data-username="octocat">octocat</button>
+          </p>
+        </form>
 
-        <section class="mode-toggle-section" aria-label="App mode selection">
-          <div class="mode-tabs" role="tablist" aria-label="Search mode">
-            <button id="tab-single" class="mode-tab active" role="tab" aria-selected="true" aria-controls="panel-single">
-              <span class="tab-icon" aria-hidden="true">👤</span> Single Search
+        <div id="state-loading" class="state-box state-loading hidden" role="status" aria-live="polite"
+          aria-label="Loading user profile">
+          <div class="spinner" aria-hidden="true">
+            <div class="spinner-ring"></div>
+          </div>
+          <p class="loading-text">Fetching profile<span class="loading-dots" aria-hidden="true"></span></p>
+        </div>
+
+        <div id="state-error" class="state-box state-error hidden" role="alert" aria-live="assertive">
+          <div class="error-icon" aria-hidden="true">🚫</div>
+          <h2 class="error-title">User Not Found</h2>
+          <p id="error-message" class="error-message">The GitHub user you searched for does not exist.</p>
+        </div>
+
+        <article id="profile-card" class="profile-card hidden" aria-label="GitHub profile" aria-live="polite">
+          <div class="profile-header">
+            <img id="profile-avatar" class="profile-avatar" src="" alt="" width="120" height="120" loading="lazy" />
+            <div class="profile-meta">
+              <h1 id="profile-name" class="profile-name"></h1>
+              <a id="profile-login" class="profile-login" href="#" target="_blank" rel="noopener noreferrer"></a>
+              <p id="profile-bio" class="profile-bio"></p>
+            </div>
+          </div>
+
+          <div class="profile-stats" role="list" aria-label="Profile statistics">
+            <div class="stat-item" role="listitem">
+              <span class="stat-value" id="stat-repos">0</span>
+              <span class="stat-label">Repos</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item" role="listitem">
+              <span class="stat-value" id="stat-followers">0</span>
+              <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item" role="listitem">
+              <span class="stat-value" id="stat-following">0</span>
+              <span class="stat-label">Following</span>
+            </div>
+          </div>
+
+          <div class="profile-details">
+            <ul class="detail-list" aria-label="Profile details">
+              <li class="detail-item">
+                <span class="detail-icon" aria-hidden="true">📅</span>
+                <span class="detail-label">Joined</span>
+                <span id="profile-joined" class="detail-value">—</span>
+              </li>
+              <li class="detail-item">
+                <span class="detail-icon" aria-hidden="true">📍</span>
+                <span class="detail-label">Location</span>
+                <span id="profile-location" class="detail-value">Not Available</span>
+              </li>
+              <li class="detail-item">
+                <span class="detail-icon" aria-hidden="true">🔗</span>
+                <span class="detail-label">Portfolio</span>
+                <a id="profile-blog" class="detail-value detail-link" href="#" target="_blank"
+                  rel="noopener noreferrer">Not Available</a>
+              </li>
+              <li class="detail-item">
+                <span class="detail-icon" aria-hidden="true">🏢</span>
+                <span class="detail-label">Company</span>
+                <span id="profile-company" class="detail-value">Not Available</span>
+              </li>
+              <li class="detail-item">
+                <span class="detail-icon" aria-hidden="true">🐦</span>
+                <span class="detail-label">Twitter</span>
+                <span id="profile-twitter" class="detail-value">Not Available</span>
+              </li>
+            </ul>
+          </div>
+
+          <section class="repos-section" aria-label="Top repositories">
+            <h2 class="section-title">
+              <span class="section-title-icon" aria-hidden="true">📁</span>
+              Top 5 Latest Repositories
+            </h2>
+            <div id="repos-loading" class="repos-loading hidden" role="status" aria-live="polite">
+              <div class="repos-skeleton">
+                <div class="skeleton-item"></div>
+                <div class="skeleton-item"></div>
+                <div class="skeleton-item"></div>
+              </div>
+            </div>
+            <ul id="repos-list" class="repos-list" aria-label="Repository list"></ul>
+          </section>
+        </article>
+      </section>
+
+      <section id="panel-battle" class="panel hidden" role="tabpanel" aria-labelledby="tab-battle">
+        <div class="battle-intro">
+          <h2 class="battle-title"><span aria-hidden="true">⚔️</span> GitHub Battle Mode</h2>
+          <p class="battle-subtitle">Enter two GitHub usernames to compare their total stars</p>
+        </div>
+
+        <form id="battle-form" class="battle-form" aria-label="GitHub battle" novalidate>
+          <div class="battle-inputs">
+            <div class="battle-input-group">
+              <label for="battle-user1" class="battle-label">
+                <span class="player-badge player-1">Player 1</span>
+              </label>
+              <div class="search-wrap">
+                <input type="text" id="battle-user1" class="search-input" placeholder="First username…"
+                  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-required="true" />
+              </div>
+            </div>
+            <div class="battle-vs" aria-hidden="true">VS</div>
+            <div class="battle-input-group">
+              <label for="battle-user2" class="battle-label">
+                <span class="player-badge player-2">Player 2</span>
+              </label>
+              <div class="search-wrap">
+                <input type="text" id="battle-user2" class="search-input" placeholder="Second username…"
+                  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-required="true" />
+              </div>
+            </div>
+          </div>
+          <div class="battle-actions">
+            <button type="submit" id="battle-btn" class="btn btn-battle">
+              <span aria-hidden="true">⚔️</span> Start Battle
             </button>
-            <button id="tab-battle" class="mode-tab" role="tab" aria-selected="false" aria-controls="panel-battle">
-              <span class="tab-icon" aria-hidden="true">⚔️</span> Battle Mode
-            </button>
           </div>
-        </section>
+        </form>
 
-        <section id="panel-single" class="panel" role="tabpanel" aria-labelledby="tab-single">
-          <form id="search-form" class="search-form" aria-label="GitHub username search" novalidate>
-            <div class="search-wrap">
-              <label for="search-input" class="sr-only">GitHub Username</label>
-              <span class="search-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              </span>
-              <input type="text" id="search-input" class="search-input" placeholder="Search GitHub username…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-required="true" aria-describedby="search-hint" />
-              <button type="submit" id="search-btn" class="btn btn-primary">Search</button>
-            </div>
-            <p id="search-hint" class="search-hint">
-              Try
-              <button type="button" class="example-link" data-username="torvalds">torvalds</button>,
-              <button type="button" class="example-link" data-username="gaearon">gaearon</button>, or
-              <button type="button" class="example-link" data-username="octocat">octocat</button>
-            </p>
-          </form>
-
-          <div id="state-loading" class="state-box state-loading hidden" role="status" aria-live="polite" aria-label="Loading user profile">
-            <div class="spinner" aria-hidden="true"><div class="spinner-ring"></div></div>
-            <p class="loading-text">Fetching profile<span class="loading-dots" aria-hidden="true"></span></p>
+        <div id="battle-loading" class="state-box state-loading hidden" role="status" aria-live="polite"
+          aria-label="Fetching battle data">
+          <div class="spinner" aria-hidden="true">
+            <div class="spinner-ring"></div>
           </div>
+          <p class="loading-text">Fetching battle data<span class="loading-dots" aria-hidden="true"></span></p>
+        </div>
 
-          <div id="state-error" class="state-box state-error hidden" role="alert" aria-live="assertive">
-            <div class="error-icon" aria-hidden="true">🚫</div>
-            <h2 class="error-title">User Not Found</h2>
-            <p id="error-message" class="error-message">The GitHub user you searched for does not exist.</p>
-          </div>
+        <div id="battle-error" class="state-box state-error hidden" role="alert" aria-live="assertive">
+          <div class="error-icon" aria-hidden="true">🚫</div>
+          <h2 class="error-title">Battle Failed</h2>
+          <p id="battle-error-message" class="error-message">One or both users could not be found.</p>
+        </div>
 
-          <article id="profile-card" class="profile-card hidden" aria-label="GitHub profile" aria-live="polite">
-            <div class="profile-header">
-              <img id="profile-avatar" class="profile-avatar" src="" alt="" width="120" height="120" loading="lazy" />
-              <div class="profile-meta">
-                <h1 id="profile-name" class="profile-name"></h1>
-                <a id="profile-login" class="profile-login" href="#" target="_blank" rel="noopener noreferrer"></a>
-                <p id="profile-bio" class="profile-bio"></p>
-              </div>
-            </div>
+        <div id="battle-results" class="battle-results hidden" aria-live="polite"></div>
+      </section>
 
-            <div class="profile-stats" role="list" aria-label="Profile statistics">
-              <div class="stat-item" role="listitem">
-                <span class="stat-value" id="stat-repos">0</span>
-                <span class="stat-label">Repos</span>
-              </div>
-              <div class="stat-divider" aria-hidden="true"></div>
-              <div class="stat-item" role="listitem">
-                <span class="stat-value" id="stat-followers">0</span>
-                <span class="stat-label">Followers</span>
-              </div>
-              <div class="stat-divider" aria-hidden="true"></div>
-              <div class="stat-item" role="listitem">
-                <span class="stat-value" id="stat-following">0</span>
-                <span class="stat-label">Following</span>
-              </div>
-            </div>
+    </div>
+  </main>
 
-            <div class="profile-details">
-              <ul class="detail-list" aria-label="Profile details">
-                <li class="detail-item">
-                  <span class="detail-icon" aria-hidden="true">📅</span>
-                  <span class="detail-label">Joined</span>
-                  <span id="profile-joined" class="detail-value">—</span>
-                </li>
-                <li class="detail-item">
-                  <span class="detail-icon" aria-hidden="true">📍</span>
-                  <span class="detail-label">Location</span>
-                  <span id="profile-location" class="detail-value">Not Available</span>
-                </li>
-                <li class="detail-item">
-                  <span class="detail-icon" aria-hidden="true">🔗</span>
-                  <span class="detail-label">Portfolio</span>
-                  <a id="profile-blog" class="detail-value detail-link" href="#" target="_blank" rel="noopener noreferrer">Not Available</a>
-                </li>
-                <li class="detail-item">
-                  <span class="detail-icon" aria-hidden="true">🏢</span>
-                  <span class="detail-label">Company</span>
-                  <span id="profile-company" class="detail-value">Not Available</span>
-                </li>
-                <li class="detail-item">
-                  <span class="detail-icon" aria-hidden="true">🐦</span>
-                  <span class="detail-label">Twitter</span>
-                  <span id="profile-twitter" class="detail-value">Not Available</span>
-                </li>
-              </ul>
-            </div>
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p class="footer-text">
+        Built with <span aria-label="love">❤️</span> using the
+        <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub
+          REST API</a>
+        &nbsp;·&nbsp; Data shown is live &amp; public
+      </p>
+      <p class="footer-credit">Prodesk IT — · Dev-Detective</p>
+    </div>
+  </footer>
 
-            <section class="repos-section" aria-label="Top repositories">
-              <h2 class="section-title">
-                <span class="section-title-icon" aria-hidden="true">📁</span>
-                Top 5 Latest Repositories
-              </h2>
-              <div id="repos-loading" class="repos-loading hidden" role="status" aria-live="polite">
-                <div class="repos-skeleton">
-                  <div class="skeleton-item"></div>
-                  <div class="skeleton-item"></div>
-                  <div class="skeleton-item"></div>
-                </div>
-              </div>
-              <ul id="repos-list" class="repos-list" aria-label="Repository list"></ul>
-            </section>
-          </article>
-        </section>
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="settings-modal hidden" role="dialog" aria-modal="true"
+    aria-labelledby="settings-title">
+    <div class="settings-overlay" id="settings-overlay"></div>
+    <div class="settings-content">
+      <button id="close-settings" class="btn-close" aria-label="Close settings">&times;</button>
+      <h2 id="settings-title" class="settings-title">API Configuration</h2>
+      <p class="settings-desc">Increase your GitHub API limit from 60 requests/hour to <strong>5,000
+          requests/hour</strong> using a Personal Access Token (PAT).</p>
 
-        <section id="panel-battle" class="panel hidden" role="tabpanel" aria-labelledby="tab-battle">
-          <div class="battle-intro">
-            <h2 class="battle-title"><span aria-hidden="true">⚔️</span> GitHub Battle Mode</h2>
-            <p class="battle-subtitle">Enter two GitHub usernames to compare their total stars</p>
-          </div>
+      <form id="settings-form" novalidate>
+        <div class="settings-form-group">
+          <label for="token-input" class="settings-label">GitHub Access Token (PAT)</label>
+          <input type="password" id="token-input" class="settings-input"
+            placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+        </div>
+        <div class="settings-actions">
+          <button type="submit" class="btn btn-primary btn-save">Save Token</button>
+          <button type="button" id="btn-clear-token" class="btn-clear">Clear Token</button>
+        </div>
+      </form>
 
-          <form id="battle-form" class="battle-form" aria-label="GitHub battle" novalidate>
-            <div class="battle-inputs">
-              <div class="battle-input-group">
-                <label for="battle-user1" class="battle-label">
-                  <span class="player-badge player-1">Player 1</span>
-                </label>
-                <div class="search-wrap">
-                  <input type="text" id="battle-user1" class="search-input" placeholder="First username…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-required="true" />
-                </div>
-              </div>
-              <div class="battle-vs" aria-hidden="true">VS</div>
-              <div class="battle-input-group">
-                <label for="battle-user2" class="battle-label">
-                  <span class="player-badge player-2">Player 2</span>
-                </label>
-                <div class="search-wrap">
-                  <input type="text" id="battle-user2" class="search-input" placeholder="Second username…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-required="true" />
-                </div>
-              </div>
-            </div>
-            <div class="battle-actions">
-              <button type="submit" id="battle-btn" class="btn btn-battle">
-                <span aria-hidden="true">⚔️</span> Start Battle
-              </button>
-            </div>
-          </form>
-
-          <div id="battle-loading" class="state-box state-loading hidden" role="status" aria-live="polite" aria-label="Fetching battle data">
-            <div class="spinner" aria-hidden="true"><div class="spinner-ring"></div></div>
-            <p class="loading-text">Fetching battle data<span class="loading-dots" aria-hidden="true"></span></p>
-          </div>
-
-          <div id="battle-error" class="state-box state-error hidden" role="alert" aria-live="assertive">
-            <div class="error-icon" aria-hidden="true">🚫</div>
-            <h2 class="error-title">Battle Failed</h2>
-            <p id="battle-error-message" class="error-message">One or both users could not be found.</p>
-          </div>
-
-          <div id="battle-results" class="battle-results hidden" aria-live="polite"></div>
-        </section>
-
+      <div class="settings-help">
+        <h3>How to get a free token?</h3>
+        <ol>
+          <li>Log in to your <strong>GitHub</strong> account.</li>
+          <li>Go to <strong>Settings</strong> &rarr; <strong>Developer Settings</strong> &rarr; <strong>Personal Access
+              Tokens (classic)</strong>.</li>
+          <li>Click <strong>Generate new token (classic)</strong>.</li>
+          <li>Give it a note (e.g. "Dev-Detective"), and click <strong>Generate token</strong> (no permissions/scopes
+            are needed for public data!).</li>
+          <li>Copy the token code (starts with <code>ghp_</code>) and paste it above.</li>
+        </ol>
       </div>
-    </main>
+    </div>
+  </div>
 
-    <footer class="site-footer" role="contentinfo">
-      <div class="container footer-inner">
-        <p class="footer-text">
-          Built with <span aria-label="love">❤️</span> using the
-          <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub REST API</a>
-          &nbsp;·&nbsp; Data shown is live &amp; public
-        </p>
-        <p class="footer-credit">Prodesk IT —  · Dev-Detective</p>
-      </div>
-    </footer>
+  <script src="js/app.js" defer></script>
+</body>
 
-    <script src="js/app.js" defer></script>
-  </body>
 </html>
